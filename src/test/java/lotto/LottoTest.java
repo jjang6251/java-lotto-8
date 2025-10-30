@@ -1,5 +1,6 @@
 package lotto;
 
+import lotto.domain.Lotto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -25,7 +26,7 @@ class LottoTest {
     @DisplayName("로또 번호가 1~45 범위 안에 없으면 예외가 발생한다.")
     @Test
     void 로또_번호가_범위_안에_없으면_예외가_발생한다() {
-        assertThatThrownBy(() -> new Lotto(List.of(1,2,3,4,5,55)))
+        assertThatThrownBy(() -> new Lotto(List.of(1, 2, 3, 4, 5, 55)))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 }
