@@ -101,3 +101,5 @@
 - `Exception` 등 포괄 예외는 사용 금지
 
 ---
+
+<img width="970" height="597" alt="Image" src="https://github.com/user-attachments/assets/27e67c85-5e89-4f31-80c3-8799787fb28f" />
