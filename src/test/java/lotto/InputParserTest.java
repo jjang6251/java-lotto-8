@@ -51,11 +51,19 @@ public class InputParserTest {
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
-    @DisplayName("입력 금액이 int형 범위 이상일 경우 예외가 발생한다")
+    @DisplayName("입력 금액이 1000만원 이상일 경우 예외가 발생한다")
     @Test
-    void 입력_금액이_int형_범위_이상일_경우_예외가_발생한다() {
+    void 입력_금액이_1000만원_이상일_경우_예외가_발생한다() {
         InputParser inputParser = new InputParser();
-        assertThatThrownBy(() -> inputParser.purchaseAmountInputParser("2,147,483,648"))
+        assertThatThrownBy(() -> inputParser.purchaseAmountInputParser("10000000"))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @DisplayName("입력 금액이 숫자가 아닐 경우 예외가 발생한다")
+    @Test
+    void 입력_금액이_숫자가_아닐_경우_예외가_발생한다() {
+        InputParser inputParser = new InputParser();
+        assertThatThrownBy(() -> inputParser.purchaseAmountInputParser("AA"))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 }
