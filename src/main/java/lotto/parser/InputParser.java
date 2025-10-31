@@ -20,6 +20,11 @@ public class InputParser {
         return purchaseAmount;
     }
 
+    public int bonusNumInputParser(String input) {
+        inputHasText(input);
+        return bonusNumParseInt(input);
+    }
+
     private static void inputHasText(String input) {
         if (input == null || input.trim().isEmpty()) {
             throw new IllegalArgumentException("[ERROR] 빈 값을 입력할 수 없습니다.");
@@ -49,6 +54,14 @@ public class InputParser {
             return Integer.parseInt(input);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("[ERROR] 입력 금액은 숫자여야 합니다.");
+        }
+    }
+
+    private static int bonusNumParseInt(String input) {
+        try {
+            return Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("[ERROR] 보너스 숫자는 숫자여야 합니다.");
         }
     }
 

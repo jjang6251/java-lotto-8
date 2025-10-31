@@ -11,7 +11,7 @@ public final class LottoFactory {
         return make(nums);
     }
 
-    private static Lotto make(List<Integer> input) {
+    public static Lotto make(List<Integer> input) {
         List<Integer> sorted = input.stream()
                 .sorted()
                 .toList();
