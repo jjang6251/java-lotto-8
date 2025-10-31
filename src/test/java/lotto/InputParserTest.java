@@ -27,7 +27,7 @@ public class InputParserTest {
     @Test
     void 입력_금액이_1000원_단위가_아닐_경우_예외가_발생한다() {
         InputParser inputParser = new InputParser();
-        assertThatThrownBy(() -> inputParser.purchaseAmountInput("14100"))
+        assertThatThrownBy(() -> inputParser.purchaseAmountInputParser("14100"))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -35,9 +35,9 @@ public class InputParserTest {
     @Test
     void 입력_금액이_음수_또는_0을_입력했을_경우_예외가_발생한다() {
         InputParser inputParser = new InputParser();
-        assertThatThrownBy(() -> inputParser.purchaseAmountInput("-100"))
+        assertThatThrownBy(() -> inputParser.purchaseAmountInputParser("-100"))
                 .isInstanceOf(IllegalArgumentException.class);
-        assertThatThrownBy(() -> inputParser.purchaseAmountInput("0"))
+        assertThatThrownBy(() -> inputParser.purchaseAmountInputParser("0"))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -45,9 +45,9 @@ public class InputParserTest {
     @Test
     void 입력_금액에_금액을_입력하지_않을_경우_예외가_발생한다() {
         InputParser inputParser = new InputParser();
-        assertThatThrownBy(() -> inputParser.purchaseAmountInput(""))
+        assertThatThrownBy(() -> inputParser.purchaseAmountInputParser(""))
                 .isInstanceOf(IllegalArgumentException.class);
-        assertThatThrownBy(() -> inputParser.purchaseAmountInput(null))
+        assertThatThrownBy(() -> inputParser.purchaseAmountInputParser(null))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -55,7 +55,7 @@ public class InputParserTest {
     @Test
     void 입력_금액이_int형_범위_이상일_경우_예외가_발생한다() {
         InputParser inputParser = new InputParser();
-        assertThatThrownBy(() -> inputParser.purchaseAmountInput("2,147,483,648"))
+        assertThatThrownBy(() -> inputParser.purchaseAmountInputParser("2,147,483,648"))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 }
