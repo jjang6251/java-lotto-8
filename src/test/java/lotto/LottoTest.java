@@ -1,12 +1,16 @@
 package lotto;
 
 import lotto.domain.Lotto;
+import lotto.domain.Lottos;
+import lotto.factory.LottosFactory;
+import lotto.parser.InputParser;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class LottoTest {
     @Test
@@ -28,5 +32,17 @@ class LottoTest {
     void 로또_번호가_범위_안에_없으면_예외가_발생한다() {
         assertThatThrownBy(() -> new Lotto(List.of(1, 2, 3, 4, 5, 55)))
                 .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @DisplayName("입력된 금액 만큼 로또가 생성된다.")
+    @Test
+    void 입력된_금액_만큼_로또가_생성된다() {
+        InputParser inputParser = new InputParser();
+        int count = inputParser.purchaseAmountInputParser("8000");
+        Lottos lottos = LottosFactory.buy(count);
+        List<Lotto> list = lottos.getLottos();
+        list.stream().count();
+
+        assertThat(list.stream().count()).isEqualTo(count);
     }
 }
