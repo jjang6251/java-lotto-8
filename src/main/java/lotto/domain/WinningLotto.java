@@ -2,11 +2,11 @@ package lotto.domain;
 
 import java.util.List;
 
-public final class WinningNum {
+public final class WinningLotto {
     private final Lotto winning;
     private final Bonus bonus;
 
-    public WinningNum(Lotto winning, Bonus bonus) {
+    public WinningLotto(Lotto winning, Bonus bonus) {
         validate(winning, bonus);
         this.winning = winning;
         this.bonus = bonus;
