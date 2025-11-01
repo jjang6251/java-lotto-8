@@ -12,4 +12,10 @@ public class LottosRankResult {
     public long countOf(Rank rank) {
         return resultMap.getOrDefault(rank, 0L);
     }
+
+    public long returnTotalPrize() {
+        return resultMap.entrySet().stream()
+                .mapToLong(entry -> entry.getKey().getPrize() * entry.getValue())
+                .sum();
+    }
 }

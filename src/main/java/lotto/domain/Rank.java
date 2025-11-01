@@ -20,6 +20,10 @@ public enum Rank {
         this.prize = prize;
     }
 
+    public int getPrize() {
+        return prize;
+    }
+
     public static Rank of(int matchCount, boolean bonusMatch) {
         if (matchCount == 5 && bonusMatch) {
             return SECOND;
