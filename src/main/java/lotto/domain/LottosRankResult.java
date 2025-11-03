@@ -13,6 +13,10 @@ public class LottosRankResult {
         return resultMap.getOrDefault(rank, 0L);
     }
 
+    public Map<Rank, Long> getResultMap() {
+        return Map.copyOf(resultMap);
+    }
+
     public long returnTotalPrize() {
         return resultMap.entrySet().stream()
                 .mapToLong(entry -> entry.getKey().getPrize() * entry.getValue())

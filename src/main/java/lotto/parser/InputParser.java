@@ -7,20 +7,20 @@ public class InputParser {
     private static final int LOTTO_PRICE = 1_000;
     private static final int PURCHASE_AMOUNT_LIMIT = 10_000_000;
 
-    public List<Integer> winningNumInputParser(String input) {
+    public static List<Integer> winningNumInputParser(String input) {
         inputHasText(input);
         winningNumHasComma(input);
         return winningNumParseIntegerList(input);
     }
 
-    public int purchaseAmountInputParser(String input) {
+    public static int purchaseAmountInputParser(String input) {
         inputHasText(input);
         int purchaseAmount = purchaseAmountParseInt(input);
         validatePurchaseAmount(purchaseAmount);
         return purchaseAmount;
     }
 
-    public int bonusNumInputParser(String input) {
+    public static int bonusNumInputParser(String input) {
         inputHasText(input);
         return bonusNumParseInt(input);
     }
