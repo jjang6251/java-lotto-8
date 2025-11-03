@@ -8,6 +8,140 @@
 
 ---
 
+```plaintext
+src
+├── main
+│   └── java
+│       └── lotto
+│           ├── Application.java
+│           ├── controller
+│           │   └── LottoController.java
+│           ├── domain
+│           │   ├── Bonus.java
+│           │   ├── Lotto.java
+│           │   ├── Lottos.java
+│           │   ├── LottosRankResult.java
+│           │   ├── Rank.java
+│           │   └── WinningLotto.java
+│           ├── factory
+│           │   ├── LottoFactory.java
+│           │   └── LottosFactory.java
+│           ├── parser
+│           │   ├── InputParser.java
+│           │   └── OutputParser.java
+│           └── view
+│               ├── InputView.java
+│               └── OutputView.java
+└── test
+    └── java
+        └── lotto
+            ├── ApplicationTest.java
+            ├── InputParserTest.java
+            ├── LottoTest.java
+            └── LottosRankResultTest.java
+```
+
+
+```mermaid
+classDiagram
+direction TB
+
+class Application {
+    +main(String[] args)
+}
+
+class LottoController {
+    - InputView inputView
+    - OutputView outputView
+    + LottoController(InputView, OutputView)
+    + void run()
+}
+
+class InputView {
+    + int inputLottoPurchaseAmount()
+    + List<Integer> inputWinningNums()
+    + int inputBonusNum()
+}
+
+class OutputView {
+    + void outputRandomLottos(Lottos, int)
+    + void outputResult(LottosRankResult, int)
+}
+
+class InputParser {
+    <<static utility>>
+    + int purchaseAmountInputParser(String)
+    + List<Integer> winningNumInputParser(String)
+    + int bonusNumInputParser(String)
+}
+
+class LottosFactory {
+    <<static>>
+    + Lottos buy(int count)
+}
+
+class Lotto {
+    - List<Integer> numbers
+    + Lotto(List<Integer>)
+    + boolean contains(int)
+    + int matchCountWith(Lotto)
+}
+
+class Lottos {
+    - List<Lotto> lottos
+    + Lottos(List<Lotto>)
+    + List<Lotto> getLottos()
+}
+
+class Bonus {
+    - int bonus
+    + Bonus(int)
+    + int value()
+}
+
+class Rank {
+    <<enum>>
+    FIRST
+    SECOND
+    THIRD
+    FOURTH
+    FIFTH
+    MISS
+    + int getMatchCount()
+    + int getPrize()
+    + static Rank of(int, boolean)
+}
+
+class WinningLotto {
+    - Lotto winning
+    - Bonus bonus
+    + WinningLotto(Lotto, Bonus)
+    + LottosRankResult evaluate(Lottos)
+}
+
+class LottosRankResult {
+    - Map<Rank, Long> resultMap
+    + long countOf(Rank)
+    + long returnTotalPrize()
+    + Map<Rank, Long> getResultMap()
+}
+
+Application --> LottoController : run()
+LottoController --> InputView
+LottoController --> OutputView
+LottoController ..> LottosFactory
+LottoController ..> WinningLotto
+LottosFactory --> Lottos
+Lottos "1" o-- "many" Lotto
+WinningLotto *-- Lotto
+WinningLotto *-- Bonus
+WinningLotto --> LottosRankResult
+LottosRankResult --> Rank
+Lotto ..> Rank
+InputView ..> InputParser
+OutputView ..> LottosRankResult
+```
+
 ## ⚙️ 기능 요약
 
 ### 🎲 도메인 규칙
@@ -102,4 +236,4 @@
 
 ---
 
-<img width="970" height="597" alt="Image" src="https://github.com/user-attachments/assets/27e67c85-5e89-4f31-80c3-8799787fb28f" />
+
