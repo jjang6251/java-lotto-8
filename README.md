@@ -46,100 +46,119 @@ src
 classDiagram
 direction TB
 
+%% ===== Main =====
 class Application {
-    +main(String[] args)
+  +static void main(String[] args)
 }
 
+%% ===== Controller =====
 class LottoController {
-    - InputView inputView
-    - OutputView outputView
-    + LottoController(InputView, OutputView)
-    + void run()
+  - InputView inputView
+  - OutputView outputView
+  + LottoController(InputView, OutputView)
+  + void run()
 }
 
+%% ===== View =====
 class InputView {
-    + int inputLottoPurchaseAmount()
-    + List<Integer> inputWinningNums()
-    + int inputBonusNum()
+  + int inputLottoPurchaseAmount()
+  + List~Integer~ inputWinningNums()
+  + int inputBonusNum()
 }
-
 class OutputView {
-    + void outputRandomLottos(Lottos, int)
-    + void outputResult(LottosRankResult, int)
+  + void outputRandomLottos(Lottos, int)
+  + void outputResult(LottosRankResult, int)
 }
 
+%% ===== Parser =====
 class InputParser {
-    <<static utility>>
-    + int purchaseAmountInputParser(String)
-    + List<Integer> winningNumInputParser(String)
-    + int bonusNumInputParser(String)
+  <<static utility>>
+  + int purchaseAmountInputParser(String)
+  + List~Integer~ winningNumInputParser(String)
+  + int bonusNumInputParser(String)
+}
+class OutputParser {
+  <<static utility>>
+  + String addComma(List~Integer~)
 }
 
+%% ===== Factory =====
+class LottoFactory {
+  <<static factory>>
+  + Lotto random()
+  + Lotto make(List~Integer~)
+}
 class LottosFactory {
-    <<static>>
-    + Lottos buy(int count)
+  <<static factory>>
+  + Lottos buy(int)
 }
 
+%% ===== Domain =====
 class Lotto {
-    - List<Integer> numbers
-    + Lotto(List<Integer>)
-    + boolean contains(int)
-    + int matchCountWith(Lotto)
+  - List~Integer~ numbers
+  + Lotto(List~Integer~)
+  + boolean contains(int)
+  + int matchCountWith(Lotto)
+  + List~Integer~ getNumbers()
 }
-
 class Lottos {
-    - List<Lotto> lottos
-    + Lottos(List<Lotto>)
-    + List<Lotto> getLottos()
+  - List~Lotto~ lottos
+  + Lottos(List~Lotto~)
+  + List~Lotto~ getLottos()
 }
-
 class Bonus {
-    - int bonus
-    + Bonus(int)
-    + int value()
+  - int bonus
+  + Bonus(int)
+  + int value()
 }
-
 class Rank {
-    <<enum>>
-    FIRST
-    SECOND
-    THIRD
-    FOURTH
-    FIFTH
-    MISS
-    + int getMatchCount()
-    + int getPrize()
-    + static Rank of(int, boolean)
+  <<enum>>
+  FIRST
+  SECOND
+  THIRD
+  FOURTH
+  FIFTH
+  MISS
+  ---
+  + int getMatchCount()
+  + int getPrize()
+  + static Rank of(int, boolean)
 }
-
 class WinningLotto {
-    - Lotto winning
-    - Bonus bonus
-    + WinningLotto(Lotto, Bonus)
-    + LottosRankResult evaluate(Lottos)
+  - Lotto winning
+  - Bonus bonus
+  + WinningLotto(Lotto, Bonus)
+  + LottosRankResult evaluate(Lottos)
 }
-
 class LottosRankResult {
-    - Map<Rank, Long> resultMap
-    + long countOf(Rank)
-    + long returnTotalPrize()
-    + Map<Rank, Long> getResultMap()
+  - Map~Rank, Long~ resultMap
+  + long countOf(Rank)
+  + long returnTotalPrize()
+  + Map~Rank, Long~ getResultMap()
 }
 
+%% ===== Relations =====
 Application --> LottoController : run()
+
 LottoController --> InputView
 LottoController --> OutputView
-LottoController ..> LottosFactory
-LottoController ..> WinningLotto
-LottosFactory --> Lottos
-Lottos "1" o-- "many" Lotto
-WinningLotto *-- Lotto
-WinningLotto *-- Bonus
-WinningLotto --> LottosRankResult
-LottosRankResult --> Rank
-Lotto ..> Rank
+LottoController ..> LottosFactory : buy()
+LottoController ..> WinningLotto : create/use
+LottoController ..> Lottos : use
+LottoController ..> LottosRankResult : use
+
 InputView ..> InputParser
 OutputView ..> LottosRankResult
+OutputView ..> OutputParser : format list
+
+Lottos "1" o-- "many" Lotto
+WinningLotto *-- Lotto : winning
+WinningLotto *-- Bonus : bonus
+WinningLotto --> LottosRankResult : evaluate()
+
+LottosRankResult --> Rank
+LottoFactory ..> Lotto : make/random
+LottosFactory ..> Lottos : buy
 ```
 
 ## ⚙️ 기능 요약
