@@ -26,10 +26,8 @@ src
 │           ├── factory
 │           │   ├── LottoFactory.java
 │           │   └── LottosFactory.java
-│           ├── parser
-│           │   ├── InputParser.java
-│           │   └── OutputParser.java
 │           └── view
+│               ├── InputParser.java
 │               ├── InputView.java
 │               └── OutputView.java
 └── test
@@ -69,17 +67,11 @@ class OutputView {
   + void outputRandomLottos(Lottos, int)
   + void outputResult(LottosRankResult, int)
 }
-
-%% ===== Parser =====
 class InputParser {
   <<static utility>>
   + int purchaseAmountInputParser(String)
   + List~Integer~ winningNumInputParser(String)
   + int bonusNumInputParser(String)
-}
-class OutputParser {
-  <<static utility>>
-  + String addComma(List~Integer~)
 }
 
 %% ===== Factory =====
@@ -143,13 +135,14 @@ Application --> LottoController : run()
 LottoController --> InputView
 LottoController --> OutputView
 LottoController ..> LottosFactory : buy()
+LottoController ..> LottoFactory : make()
 LottoController ..> WinningLotto : create/use
 LottoController ..> Lottos : use
 LottoController ..> LottosRankResult : use
 
 InputView ..> InputParser
-OutputView ..> LottosRankResult
-OutputView ..> OutputParser : format list
+OutputView ..> Lottos : print
+OutputView ..> LottosRankResult : print
 
 Lottos "1" o-- "many" Lotto
 WinningLotto *-- Lotto : winning
