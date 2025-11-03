@@ -8,8 +8,6 @@ import lotto.domain.LottosRankResult;
 import lotto.domain.WinningLotto;
 import lotto.factory.LottoFactory;
 import lotto.factory.LottosFactory;
-import lotto.parser.InputParser;
-import lotto.parser.OutputParser;
 import lotto.view.InputView;
 import lotto.view.OutputView;
 
@@ -25,17 +23,20 @@ public class LottoController {
 
     public void run() {
         int lottoPurchaseAmount = inputView.inputLottoPurchaseAmount();
-        int lottoCount = lottoPurchaseAmount/LOTTO_PRICE;
+        int lottoCount = lottoPurchaseAmount / LOTTO_PRICE;
         Lottos lottos = LottosFactory.buy(lottoCount);
         outputView.outputRandomLottos(lottos, lottoCount);
 
-        List<Integer> winningNums = inputView.inputWinningNums();
-        Lotto winningLotto = LottoFactory.make(winningNums);
-        int bonus = inputView.inputBonusNum();
-        Bonus bonusNum = new Bonus(bonus);
-        WinningLotto makeWinningLotto = new WinningLotto(winningLotto, bonusNum);
+        WinningLotto makeWinningLotto = readWinningLotto();
 
         LottosRankResult lottosRankResult = makeWinningLotto.evaluate(lottos);
         outputView.outputResult(lottosRankResult, lottoPurchaseAmount);
+    }
+
+    private WinningLotto readWinningLotto() {
+        List<Integer> winningNums = inputView.inputWinningNums();
+        Lotto winningLotto = LottoFactory.make(winningNums);
+        int bonus = inputView.inputBonusNum();
+        return new WinningLotto(winningLotto, new Bonus(bonus));
     }
 }

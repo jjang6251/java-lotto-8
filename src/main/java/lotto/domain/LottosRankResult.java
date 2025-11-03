@@ -3,22 +3,18 @@ package lotto.domain;
 import java.util.Map;
 
 public class LottosRankResult {
-    private final Map<Rank, Long> resultMap;
+    private final Map<Rank, Long> winningResult;
 
     public LottosRankResult(Map<Rank, Long> resultMap) {
-        this.resultMap = resultMap;
+        this.winningResult = resultMap;
     }
 
     public long countOf(Rank rank) {
-        return resultMap.getOrDefault(rank, 0L);
-    }
-
-    public Map<Rank, Long> getResultMap() {
-        return Map.copyOf(resultMap);
+        return winningResult.getOrDefault(rank, 0L);
     }
 
     public long returnTotalPrize() {
-        return resultMap.entrySet().stream()
+        return winningResult.entrySet().stream()
                 .mapToLong(entry -> entry.getKey().getPrize() * entry.getValue())
                 .sum();
     }

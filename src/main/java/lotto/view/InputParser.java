@@ -1,4 +1,4 @@
-package lotto.parser;
+package lotto.view;
 
 import java.util.Arrays;
 import java.util.List;
@@ -10,7 +10,7 @@ public class InputParser {
     public static List<Integer> winningNumInputParser(String input) {
         inputHasText(input);
         winningNumHasComma(input);
-        return winningNumParseIntegerList(input);
+        return winningNumParseToInteger(input);
     }
 
     public static int purchaseAmountInputParser(String input) {
@@ -31,7 +31,7 @@ public class InputParser {
         }
     }
 
-    private static List<Integer> winningNumParseIntegerList(String input) {
+    private static List<Integer> winningNumParseToInteger(String input) {
         try {
             List<Integer> numbers = Arrays.stream(input.split(","))
                     .map(String::trim)

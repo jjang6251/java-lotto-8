@@ -3,12 +3,10 @@ package lotto.view;
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import lotto.domain.Lotto;
 import lotto.domain.Lottos;
 import lotto.domain.LottosRankResult;
 import lotto.domain.Rank;
-import lotto.parser.OutputParser;
 
 public class OutputView {
     public void outputRandomLottos(Lottos lottos, int count) {

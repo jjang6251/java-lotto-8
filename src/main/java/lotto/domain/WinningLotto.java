@@ -22,14 +22,6 @@ public final class WinningLotto {
         }
     }
 
-    public Lotto getWinning() {
-        return winning;
-    }
-
-    public Bonus getBonus() {
-        return bonus;
-    }
-
     public LottosRankResult evaluate(Lottos lottos) {
         Map<Rank, Long> resultMap = new EnumMap<>(Rank.class);
         List<Lotto> list = lottos.getLottos();

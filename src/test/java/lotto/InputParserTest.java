@@ -6,7 +6,7 @@ import java.util.List;
 import lotto.domain.Bonus;
 import lotto.domain.Lotto;
 import lotto.domain.WinningLotto;
-import lotto.parser.InputParser;
+import lotto.view.InputParser;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -101,7 +101,7 @@ public class InputParserTest {
     void 보너스_번호가_당첨_번호와_중복_시_예외가_발생한다() {
         InputParser inputParser = new InputParser();
         int bonusNum = inputParser.bonusNumInputParser("5");
-        Lotto winningLotto = new Lotto(List.of(1,2,3,4,5,6));
+        Lotto winningLotto = new Lotto(List.of(1, 2, 3, 4, 5, 6));
         Bonus bonus = new Bonus(bonusNum);
         assertThatThrownBy(() -> new WinningLotto(winningLotto, bonus))
                 .isInstanceOf(IllegalArgumentException.class);

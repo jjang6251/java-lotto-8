@@ -3,7 +3,7 @@ package lotto;
 import lotto.domain.Lotto;
 import lotto.domain.Lottos;
 import lotto.factory.LottosFactory;
-import lotto.parser.InputParser;
+import lotto.view.InputParser;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
